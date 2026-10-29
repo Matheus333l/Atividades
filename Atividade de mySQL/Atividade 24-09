@@ -1,0 +1,82 @@
+create database RGM_49169971;
+use RGM_49169971;     
+     
+     
+    CREATE TABLE cliente (
+    id     INT AUTO_INCREMENT PRIMARY KEY,
+    nome   VARCHAR(120) NOT NULL,
+    cidade VARCHAR(60),
+    email  VARCHAR(120)
+);
+
+INSERT INTO cliente (nome, cidade, email) VALUES
+    ('Marina Costa',   'Itu',        'marina.costa@email.com'),
+    ('Rafael Moreira', 'Salto',      'rafael.moreira@email.com'),
+    ('Juliana Barros', 'Sorocaba',   'juliana.barros@email.com'),
+    ('Tiago Fontes',   'Indaiatuba', 'tiago.fontes@email.com'),
+    ('Patricia Alves', 'Itu',        'patricia.alves@email.com');
+    
+    CREATE TABLE vendedor (
+    id    INT AUTO_INCREMENT PRIMARY KEY,
+    nome  VARCHAR(120) NOT NULL,
+    setor VARCHAR(40)
+);
+
+
+
+INSERT INTO vendedor (nome, setor) VALUES
+    ('Carlos Menezes', 'Balcao'),
+    ('Beatriz Ramos',  'Externo'),
+    ('Diego Sampaio',  'Balcao'),
+    ('Leticia Duarte', 'Online'),
+    ('Marcos Vieira',  'Externo');
+
+
+CREATE TABLE vendas (
+    id          INT AUTO_INCREMENT PRIMARY KEY,
+    produto     VARCHAR(80) NOT NULL,
+    quantidade  INT,
+    valor       DECIMAL(10,2),
+    data_venda  DATE,
+    id_cliente  INT,
+    id_vendedor INT,
+    FOREIGN KEY (id_cliente)  REFERENCES cliente (id),
+    FOREIGN KEY (id_vendedor) REFERENCES vendedor (id)
+);
+
+
+INSERT INTO vendas (produto, quantidade, valor, data_venda, id_cliente, id_vendedor) VALUES
+    ('Notebook',   1, 3200.00, '2026-03-02', 1, 1),
+    ('Mouse',      2,   89.90, '2026-03-05', 2, 1),
+    ('Monitor',    1,  980.00, '2026-03-11', 3, 2),
+    ('Teclado',    3,  175.50, '2026-03-18', 4, 3),
+    ('Impressora', 1, 1240.00, '2026-04-02', 5, 2);
+    
+    
+    select * from cliente;
+    select * from vendedor;
+	select * from vendas;
+
+select cliente.nome as NomeCliente, vendas.produto, vendedor.nome as VendedorNome from vendas
+join cliente on vendas.id_cliente = cliente.id
+join vendedor on vendas.id_cliente = vendedor.id;
+
+
+delete from vendas where id_vendedor = 1;
+delete from vendedor where id = 1;
+
+delete from vendas where id_vendedor = 3;
+delete from vendedor where id = 3;
+
+INSERT INTO vendedor (nome, setor) VALUES
+    ('Carlos Menezes', 'Balcao');
+    
+INSERT INTO vendas (produto, quantidade, valor, data_venda, id_cliente, id_vendedor) VALUES
+    ('Notebook',   1, 3200.00, '2026-03-02', 1, 6),
+    ('Mouse',      2,   89.90, '2026-03-05', 2, 6);
+    
+    
+    select * from cliente;
+    select * from vendedor;
+	select * from vendas;
+
